@@ -76,7 +76,6 @@ int main(int argc, char** argv) {
 	
 	//train 1-vs-all SVMs
 	map<string,CvSVM> classes_classifiers;
-	FileStorage fs_("SVM_classifiers.yml",FileStorage::WRITE);
 	for (map<string,Mat>::iterator it = classes_training_data.begin(); it != classes_training_data.end(); ++it) {
 		string class_ = (*it).first;
 		cout << "training class: " << class_ << ".." << endl;
@@ -101,7 +100,7 @@ int main(int argc, char** argv) {
 		Mat samples_32f; samples.convertTo(samples_32f, CV_32F);
 		classes_classifiers[class_].train(samples_32f,labels);
 		
-		fs_ << class_ << classes_classifiers[class_];
+		stringstream ss; ss << "SVM_classifier_" << class_ << ".yml";
+		classes_classifiers[class_].save(ss.str().c_str());
 	}
-	fs.release();
 }
