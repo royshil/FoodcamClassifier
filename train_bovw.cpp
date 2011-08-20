@@ -98,6 +98,7 @@ int main(int argc, char** argv) {
 		}
 		
 		Mat samples_32f; samples.convertTo(samples_32f, CV_32F);
+		if(samples.rows == 0) continue; //phantom class?!
 		classes_classifiers[class_].train(samples_32f,labels);
 		
 		stringstream ss; ss << "SVM_classifier_" << class_ << ".yml";
