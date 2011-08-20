@@ -95,6 +95,7 @@
 		D7BC020713FF6AD6004D115F /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		D7BC020D13FF7902004D115F /* kmeans_trainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kmeans_trainer.h; sourceTree = "<group>"; };
 		D7BC020E13FF7902004D115F /* kmeans_trainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kmeans_trainer.cpp; sourceTree = "<group>"; };
+		D7BC02691400182B004D115F /* training.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training.txt; sourceTree = "<group>"; };
 		D7BCFF1213FE37FD004D115F /* libopencv_core.2.3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_core.2.3.1.dylib; path = usr/local/lib/libopencv_core.2.3.1.dylib; sourceTree = SDKROOT; };
 		D7BCFF1713FE3812004D115F /* libopencv_features2d.2.3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_features2d.2.3.1.dylib; path = usr/local/lib/libopencv_features2d.2.3.1.dylib; sourceTree = SDKROOT; };
 		D7BCFF1C13FE3820004D115F /* libopencv_highgui.2.3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_highgui.2.3.1.dylib; path = usr/local/lib/libopencv_highgui.2.3.1.dylib; sourceTree = SDKROOT; };
@@ -166,6 +167,7 @@
 		08FB7795FE84155DC02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				D7BC02691400182B004D115F /* training.txt */,
 				08FB7796FE84155DC02AAC07 /* main.cpp */,
 				D7BCFFAB13FEAC04004D115F /* manual_classifier.cpp */,
 				D7BC01BD13FF3F9F004D115F /* train_bovw.h */,

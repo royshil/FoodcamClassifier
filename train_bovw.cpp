@@ -18,6 +18,7 @@ int main(int argc, char** argv) {
 	fs["vocabulary"] >> vocabulary;
 	fs.release();	
 	
+	Ptr<SurfFeatureDetector > detector(new SurfFeatureDetector()); //detector
 	Ptr<DescriptorExtractor > extractor(new SurfDescriptorExtractor());//  extractor;
 	Ptr<DescriptorMatcher > matcher(new BruteForceMatcher<L2<float> >());
 	BOWImgDescriptorExtractor bowide(extractor,matcher);
@@ -42,7 +43,7 @@ int main(int argc, char** argv) {
 		ifs.getline(buf, 255);
 		string line(buf);
 		istringstream iss(line);
-		//		cout << line << endl;
+//		cout << line << endl;
 		iss >> filepath;
 		Rect r; char delim;
 		iss >> r.x >> delim;
@@ -60,9 +61,10 @@ int main(int argc, char** argv) {
 		}
 		char c__[] = {(char)atoi(class_.c_str()),'\0'};
 		string c_(c__);
-		cout << ".";
-		//		putText(img, c_, Point(20,20), CV_FONT_HERSHEY_PLAIN, 2.0, Scalar(255), 2);
-		//		imshow("pic",img);
+		cout << c_;
+//		putText(img, c_, Point(20,20), CV_FONT_HERSHEY_PLAIN, 2.0, Scalar(255), 2);
+//		imshow("pic",img);
+		detector->detect(img,keypoints);
 		bowide.compute(img, keypoints, response_hist);
 		
 		if(classes_training_data.count(c_) == 0) { //not yet created...
@@ -70,9 +72,14 @@ int main(int argc, char** argv) {
 		}
 		classes_training_data[c_].push_back(response_hist);
 		total_samples++;
-		//		waitKey(0);
+//		waitKey(0);
 	} while (!ifs.eof());
 	cout << endl;
+	
+	cout << "got " << classes_training_data.size() << " classes.\n total of " << total_samples << " samples." <<endl;
+	for (map<string,Mat>::iterator it = classes_training_data.begin(); it != classes_training_data.end(); ++it) {
+		cout << " class " << (*it).first << " has " << (*it).second.rows << " samples"<<endl;
+	}
 	
 	//train 1-vs-all SVMs
 	map<string,CvSVM> classes_classifiers;
@@ -84,6 +91,7 @@ int main(int argc, char** argv) {
 		Mat labels(0,1,CV_32FC1);
 		
 		//copy class samples and label
+		cout << "adding " << classes_training_data[class_].rows << " positive"<<endl;
 		samples.push_back(classes_training_data[class_]);
 		Mat class_label = Mat::ones(classes_training_data[class_].rows, 1, CV_32FC1);
 		labels.push_back(class_label);
