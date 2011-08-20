@@ -8,6 +8,7 @@
  */
 
 #include "train_bovw.h"
+#include "stdio.h"
 
 int main(int argc, char** argv) {
 	printf("Not implemeted yet\n");
