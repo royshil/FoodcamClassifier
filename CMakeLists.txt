@@ -13,3 +13,6 @@ TARGET_LINK_LIBRARIES( train-bovw ${OpenCV_LIBS} )
 
 ADD_EXECUTABLE( build-vocabulary build_vocabolary.cpp )
 TARGET_LINK_LIBRARIES( build-vocabulary ${OpenCV_LIBS} )
+
+ADD_EXECUTABLE( kmeans-trainer kmeans_trainer.cpp )
+TARGET_LINK_LIBRARIES( kmeans-trainer ${OpenCV_LIBS} )
