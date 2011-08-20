@@ -91,6 +91,7 @@
 		D7BC01D013FF3FE3004D115F /* build_vocabolary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = build_vocabolary.h; sourceTree = "<group>"; };
 		D7BC01D113FF3FE3004D115F /* build_vocabolary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = build_vocabolary.cpp; sourceTree = "<group>"; };
 		D7BC01E013FF4013004D115F /* FoodcamClassifier */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = FoodcamClassifier; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7BC020713FF6AD6004D115F /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		D7BCFF1213FE37FD004D115F /* libopencv_core.2.3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_core.2.3.1.dylib; path = usr/local/lib/libopencv_core.2.3.1.dylib; sourceTree = SDKROOT; };
 		D7BCFF1713FE3812004D115F /* libopencv_features2d.2.3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_features2d.2.3.1.dylib; path = usr/local/lib/libopencv_features2d.2.3.1.dylib; sourceTree = SDKROOT; };
 		D7BCFF1C13FE3820004D115F /* libopencv_highgui.2.3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_highgui.2.3.1.dylib; path = usr/local/lib/libopencv_highgui.2.3.1.dylib; sourceTree = SDKROOT; };
@@ -168,6 +169,7 @@
 				D7BC01BE13FF3F9F004D115F /* train_bovw.cpp */,
 				D7BC01D013FF3FE3004D115F /* build_vocabolary.h */,
 				D7BC01D113FF3FE3004D115F /* build_vocabolary.cpp */,
+				D7BC020713FF6AD6004D115F /* CMakeLists.txt */,
 			);
 			name = Source;
 			sourceTree = "<group>";

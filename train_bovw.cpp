@@ -9,3 +9,7 @@
 
 #include "train_bovw.h"
 
+int main(int argc, char** argv) {
+	printf("Not implemeted yet\n");
+	return 0;
+}
