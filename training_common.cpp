@@ -51,15 +51,20 @@ void extract_training_samples(Ptr<FeatureDetector>& detector, BOWImgDescriptorEx
 	Mat response_hist;
 	cout << "look in train data"<<endl;
 	char buf[255];
-	ifstream ifs("training.txt");
+	Ptr<ifstream> ifs(new ifstream("training.txt"));
 	int total_samples = 0;
 	string filepath;
 	Mat img;
 	vector<KeyPoint> keypoints;
 	vector<string> classes_names;
-	do
+	
+#pragma omp parallel shared(classes_training_data,ifs)
 	{
-		ifs.getline(buf, 255);
+		
+#pragma omp for schedule(static) nowait
+	for(;!ifs->eof();)
+	{
+		ifs->getline(buf, 255);
 		string line(buf);
 		istringstream iss(line);
 		//		cout << line << endl;
@@ -90,8 +95,10 @@ void extract_training_samples(Ptr<FeatureDetector>& detector, BOWImgDescriptorEx
 		total_samples++;
 		
 		//		waitKey(0);
-	} while (!ifs.eof());
+	}
 	cout << endl;
+		
+	} //end parallel
 
 	cout << "save to file.."<<endl;
 	{
