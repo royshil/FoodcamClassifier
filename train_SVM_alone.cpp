@@ -20,6 +20,6 @@ int main() {
 	
 	cout << "train SVM.." <<endl;
 	string file_postfix = "with_colors";
-	Mat& one_class = (*(classes_training_data.begin()).second;
+	Mat& one_class = (*(classes_training_data.begin())).second;
 	trainSVM(classes_training_data, file_postfix, one_class.cols, one_class.type());
 }
