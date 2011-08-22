@@ -49,12 +49,11 @@ void trainSVM(map<string,Mat>& classes_training_data, string& file_postfix, int 
 
 void extract_training_samples(Ptr<FeatureDetector>& detector, BOWImgDescriptorExtractor& bowide, map<string,Mat>& classes_training_data) {
 	cout << "look in train data"<<endl;
-	char buf[255];
 	Ptr<ifstream> ifs(new ifstream("training.txt"));
 	int total_samples = 0;
-	string filepath;
 	vector<string> classes_names;
 	
+	char buf[255];
 	vector<string> lines;
 	while(!ifs->eof()) {
 		ifs->getline(buf, 255);
@@ -70,6 +69,7 @@ void extract_training_samples(Ptr<FeatureDetector>& detector, BOWImgDescriptorEx
 		vector<KeyPoint> keypoints;
 		Mat response_hist;
 		Mat img;
+		string filepath;
 
 		string line(lines[i]);
 		istringstream iss(line);
