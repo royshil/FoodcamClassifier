@@ -12,7 +12,7 @@
 
 
 int main(int argc, char** argv) {
-	string dir = "/Users/royshilkrot/Downloads/foodcamimages/TRAIN", filepath;
+	string dir = "foodcamimages/TRAIN", filepath;
 	DIR *dp;
 	struct dirent *dirp;
 	struct stat filestat;
@@ -20,11 +20,17 @@ int main(int argc, char** argv) {
 	dp = opendir( dir.c_str() );
 	
 	// detecting keypoints
-	SurfFeatureDetector detector(1000);
+	SurfFeatureDetector detector(400);
+	//FastFeatureDetector detector(1,true);
 	vector<KeyPoint> keypoints;	
 	
 	// computing descriptors
-	Ptr<DescriptorExtractor > extractor(new SurfDescriptorExtractor());//  extractor;
+	//Ptr<DescriptorExtractor > extractor(new SurfDescriptorExtractor());//  extractor;
+	Ptr<DescriptorExtractor > extractor(
+		new OpponentColorDescriptorExtractor(
+			Ptr<DescriptorExtractor>(new SurfDescriptorExtractor())
+			)
+		);
 	Mat descriptors;
 	Mat training_descriptors(1,extractor->descriptorSize(),extractor->descriptorType());
 	Mat img;
@@ -33,6 +39,8 @@ int main(int argc, char** argv) {
 	
 	cout << "extract descriptors.."<<endl;
 	//int count = 0;
+	Rect clipping_rect = Rect(0,120,640,480-120);
+	Mat bg_ = imread("background.png")(clipping_rect), img_fg;
 	while (dirp = readdir( dp ))
     {
 	//	count++;
@@ -43,7 +51,19 @@ int main(int argc, char** argv) {
 		if (S_ISDIR( filestat.st_mode ))         continue;
 		
 		img = imread(filepath);
-		detector.detect(img, keypoints);
+		if (!img.data) {
+			continue;
+		}
+		img = img(clipping_rect);
+		img_fg = img - bg_;
+		detector.detect(img_fg, keypoints);
+		{
+			Mat out; //img_fg.copyTo(out);
+			drawKeypoints(img, keypoints, out, Scalar(255));
+			imshow("fg",img_fg);
+			imshow("keypoints", out);
+			waitKey(0);
+		}
 		extractor->compute(img, keypoints, descriptors);
 		
 		training_descriptors.push_back(descriptors);
