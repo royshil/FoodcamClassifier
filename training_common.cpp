@@ -60,7 +60,7 @@ void extract_training_samples(Ptr<FeatureDetector>& detector, BOWImgDescriptorEx
 	
 	
 	//try some multithreading
-#pragma omp parallel shared(classes_training_data,ifs) NUM_THREADS(10)
+#pragma omp parallel shared(classes_training_data,ifs) num_threads(10)
 	{
 		
 #pragma omp for schedule(static) nowait
