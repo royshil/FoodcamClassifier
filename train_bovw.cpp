@@ -25,7 +25,12 @@ int main(int argc, char** argv_) {
 	fs.release();	
 	
 	Ptr<SurfFeatureDetector > detector(new SurfFeatureDetector()); //detector
-	Ptr<DescriptorExtractor > extractor(new SurfDescriptorExtractor());//  extractor;
+	//Ptr<DescriptorExtractor > extractor(new SurfDescriptorExtractor());//  extractor;
+	Ptr<DescriptorExtractor > extractor(
+		new OpponentColorDescriptorExtractor(
+			 Ptr<DescriptorExtractor>(new SurfDescriptorExtractor())
+			 )
+		);
 	Ptr<DescriptorMatcher > matcher(new BruteForceMatcher<L2<float> >());
 	BOWImgDescriptorExtractor bowide(extractor,matcher);
 	bowide.setVocabulary(vocabulary);
