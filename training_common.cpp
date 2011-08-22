@@ -72,7 +72,7 @@ void extract_training_samples(Ptr<FeatureDetector>& detector, BOWImgDescriptorEx
 		if(r.width != 0) {
 			img = img(r); //crop to interesting region
 		}
-		
+		cout << "."; cout.flush();
 		//		char c__[] = {(char)atoi(class_.c_str()),'\0'};
 		//		string c_(c__);
 		//		cout << c_; cout.flush();

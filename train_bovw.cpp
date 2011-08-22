@@ -38,8 +38,7 @@ int main(int argc, char** argv_) {
 	//setup training data for classifiers
 	map<string,Mat> classes_training_data; classes_training_data.clear();
 	
-	cout << "train SVMs\n";
-	
+	cout << "extract_training_samples.." << endl;
 	extract_training_samples(detector, bowide, classes_training_data);
 	
 	cout << "got " << classes_training_data.size() << " classes." <<endl;
@@ -47,6 +46,7 @@ int main(int argc, char** argv_) {
 		cout << " class " << (*it).first << " has " << (*it).second.rows << " samples"<<endl;
 	}
 	
+	cout << "train SVMs\n";
 	trainSVM(classes_training_data, argv[3], extractor->descriptorSize(), extractor->descriptorType());
 
 	return 0;
