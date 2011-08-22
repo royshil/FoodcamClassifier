@@ -55,9 +55,15 @@ void extract_training_samples(Ptr<FeatureDetector>& detector, BOWImgDescriptorEx
 	string filepath;
 	vector<string> classes_names;
 	
+	vector<string> lines;
+	while(!ifs->eof()) {
+		ifs->getline(buf, 255);
+		lines.push_back(buf);
+	}
+	
 	//try some multithreading
-	#pragma omp parallel for private(buf)
-	for(int i=0;i<1000;i++) {
+	#pragma omp parallel for
+	for(int i=0;i<lines.size();i++) {
 //		printf("Hello from thread %d, nthreads %d\n", omp_get_thread_num(), omp_get_num_threads());
 //		if(ifs->eof()) break;
 
@@ -65,12 +71,9 @@ void extract_training_samples(Ptr<FeatureDetector>& detector, BOWImgDescriptorEx
 		Mat response_hist;
 		Mat img;
 
-		#pragma omp critical
-		ifs->getline(buf, 255);
-		
-		string line(buf);
+		string line(lines[i]);
 		istringstream iss(line);
-		//		cout << line << endl;
+
 		iss >> filepath;
 		Rect r; char delim; iss >> r.x >> delim >> r.y >> delim >> r.width >> delim >> r.height;
 		string class_; iss >> class_;
