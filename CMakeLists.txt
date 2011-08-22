@@ -16,3 +16,9 @@ TARGET_LINK_LIBRARIES( build-vocabulary ${OpenCV_LIBS} )
 
 ADD_EXECUTABLE( kmeans-trainer kmeans_trainer.cpp )
 TARGET_LINK_LIBRARIES( kmeans-trainer ${OpenCV_LIBS} )
+
+ADD_EXECUTABLE( make-test-background make_test_background_image.cpp )
+TARGET_LINK_LIBRARIES( make-test-background ${OpenCV_LIBS} )
+
+ADD_EXECUTABLE( test-classifiers test_classifiers.cpp )
+TARGET_LINK_LIBRARIES( test-classifiers ${OpenCV_LIBS} )

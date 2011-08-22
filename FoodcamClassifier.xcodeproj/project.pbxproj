@@ -32,6 +32,21 @@
 		D7BC01E213FF4023004D115F /* build_vocabolary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7BC01D113FF3FE3004D115F /* build_vocabolary.cpp */; };
 		D7BC01E713FF4040004D115F /* build_vocabolary.h in Sources */ = {isa = PBXBuildFile; fileRef = D7BC01D013FF3FE3004D115F /* build_vocabolary.h */; };
 		D7BC020F13FF7902004D115F /* kmeans_trainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7BC020E13FF7902004D115F /* kmeans_trainer.cpp */; };
+		D7BC028314001CA8004D115F /* test_classifiers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7BC028214001CA8004D115F /* test_classifiers.cpp */; };
+		D7BC028914001E3D004D115F /* test_classifiers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7BC028214001CA8004D115F /* test_classifiers.cpp */; };
+		D7BC028B14001E3D004D115F /* libopencv_core.2.3.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BCFF1213FE37FD004D115F /* libopencv_core.2.3.1.dylib */; };
+		D7BC028C14001E3D004D115F /* libopencv_features2d.2.3.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BCFF1713FE3812004D115F /* libopencv_features2d.2.3.1.dylib */; };
+		D7BC028D14001E3D004D115F /* libopencv_highgui.2.3.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BCFF1C13FE3820004D115F /* libopencv_highgui.2.3.1.dylib */; };
+		D7BC028E14001E3D004D115F /* libopencv_ml.2.3.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BC00A313FEE61A004D115F /* libopencv_ml.2.3.1.dylib */; };
+		D7BC029014001E3D004D115F /* FoodcamClassifier.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859E8B029090EE04C91782 /* FoodcamClassifier.1 */; };
+		D7BC039B140038A0004D115F /* libopencv_imgproc.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BC039A140038A0004D115F /* libopencv_imgproc.dylib */; };
+		D7BC044F1401E60F004D115F /* libopencv_core.2.3.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BCFF1213FE37FD004D115F /* libopencv_core.2.3.1.dylib */; };
+		D7BC04501401E60F004D115F /* libopencv_features2d.2.3.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BCFF1713FE3812004D115F /* libopencv_features2d.2.3.1.dylib */; };
+		D7BC04511401E60F004D115F /* libopencv_highgui.2.3.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BCFF1C13FE3820004D115F /* libopencv_highgui.2.3.1.dylib */; };
+		D7BC04521401E60F004D115F /* libopencv_ml.2.3.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BC00A313FEE61A004D115F /* libopencv_ml.2.3.1.dylib */; };
+		D7BC04531401E60F004D115F /* libopencv_imgproc.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BC039A140038A0004D115F /* libopencv_imgproc.dylib */; };
+		D7BC04551401E60F004D115F /* FoodcamClassifier.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859E8B029090EE04C91782 /* FoodcamClassifier.1 */; };
+		D7BC045B1401E624004D115F /* make_test_background_image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7BC044A1401E5FF004D115F /* make_test_background_image.cpp */; };
 		D7BCFF1313FE37FD004D115F /* libopencv_core.2.3.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BCFF1213FE37FD004D115F /* libopencv_core.2.3.1.dylib */; };
 		D7BCFF1813FE3812004D115F /* libopencv_features2d.2.3.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BCFF1713FE3812004D115F /* libopencv_features2d.2.3.1.dylib */; };
 		D7BCFF1D13FE3820004D115F /* libopencv_highgui.2.3.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BCFF1C13FE3820004D115F /* libopencv_highgui.2.3.1.dylib */; };
@@ -78,6 +93,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		D7BC028F14001E3D004D115F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+				D7BC029014001E3D004D115F /* FoodcamClassifier.1 in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		D7BC04541401E60F004D115F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+				D7BC04551401E60F004D115F /* FoodcamClassifier.1 in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -96,6 +131,13 @@
 		D7BC020D13FF7902004D115F /* kmeans_trainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kmeans_trainer.h; sourceTree = "<group>"; };
 		D7BC020E13FF7902004D115F /* kmeans_trainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kmeans_trainer.cpp; sourceTree = "<group>"; };
 		D7BC02691400182B004D115F /* training.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training.txt; sourceTree = "<group>"; };
+		D7BC028114001CA8004D115F /* test_classifiers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = test_classifiers.h; sourceTree = "<group>"; };
+		D7BC028214001CA8004D115F /* test_classifiers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test_classifiers.cpp; sourceTree = "<group>"; };
+		D7BC029414001E3D004D115F /* FoodcamClassifier */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = FoodcamClassifier; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7BC039A140038A0004D115F /* libopencv_imgproc.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_imgproc.dylib; path = usr/local/lib/libopencv_imgproc.dylib; sourceTree = SDKROOT; };
+		D7BC04491401E5FF004D115F /* make_test_background_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = make_test_background_image.h; sourceTree = "<group>"; };
+		D7BC044A1401E5FF004D115F /* make_test_background_image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = make_test_background_image.cpp; sourceTree = "<group>"; };
+		D7BC04591401E60F004D115F /* FoodcamClassifier */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = FoodcamClassifier; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7BCFF1213FE37FD004D115F /* libopencv_core.2.3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_core.2.3.1.dylib; path = usr/local/lib/libopencv_core.2.3.1.dylib; sourceTree = SDKROOT; };
 		D7BCFF1713FE3812004D115F /* libopencv_features2d.2.3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_features2d.2.3.1.dylib; path = usr/local/lib/libopencv_features2d.2.3.1.dylib; sourceTree = SDKROOT; };
 		D7BCFF1C13FE3820004D115F /* libopencv_highgui.2.3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_highgui.2.3.1.dylib; path = usr/local/lib/libopencv_highgui.2.3.1.dylib; sourceTree = SDKROOT; };
@@ -147,6 +189,30 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D7BC028A14001E3D004D115F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D7BC028B14001E3D004D115F /* libopencv_core.2.3.1.dylib in Frameworks */,
+				D7BC028C14001E3D004D115F /* libopencv_features2d.2.3.1.dylib in Frameworks */,
+				D7BC028D14001E3D004D115F /* libopencv_highgui.2.3.1.dylib in Frameworks */,
+				D7BC028E14001E3D004D115F /* libopencv_ml.2.3.1.dylib in Frameworks */,
+				D7BC039B140038A0004D115F /* libopencv_imgproc.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D7BC044E1401E60F004D115F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D7BC044F1401E60F004D115F /* libopencv_core.2.3.1.dylib in Frameworks */,
+				D7BC04501401E60F004D115F /* libopencv_features2d.2.3.1.dylib in Frameworks */,
+				D7BC04511401E60F004D115F /* libopencv_highgui.2.3.1.dylib in Frameworks */,
+				D7BC04521401E60F004D115F /* libopencv_ml.2.3.1.dylib in Frameworks */,
+				D7BC04531401E60F004D115F /* libopencv_imgproc.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -160,6 +226,7 @@
 				D7BCFF1713FE3812004D115F /* libopencv_features2d.2.3.1.dylib */,
 				D7BCFF1C13FE3820004D115F /* libopencv_highgui.2.3.1.dylib */,
 				D7BC00A313FEE61A004D115F /* libopencv_ml.2.3.1.dylib */,
+				D7BC039A140038A0004D115F /* libopencv_imgproc.dylib */,
 			);
 			name = FoodcamClassifier;
 			sourceTree = "<group>";
@@ -177,6 +244,10 @@
 				D7BC020713FF6AD6004D115F /* CMakeLists.txt */,
 				D7BC020D13FF7902004D115F /* kmeans_trainer.h */,
 				D7BC020E13FF7902004D115F /* kmeans_trainer.cpp */,
+				D7BC028114001CA8004D115F /* test_classifiers.h */,
+				D7BC028214001CA8004D115F /* test_classifiers.cpp */,
+				D7BC04491401E5FF004D115F /* make_test_background_image.h */,
+				D7BC044A1401E5FF004D115F /* make_test_background_image.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -188,6 +259,8 @@
 				D7BC014013FF0035004D115F /* FoodcamClassifier */,
 				D7BC01CD13FF3FA9004D115F /* FoodcamClassifier */,
 				D7BC01E013FF4013004D115F /* FoodcamClassifier */,
+				D7BC029414001E3D004D115F /* FoodcamClassifier */,
+				D7BC04591401E60F004D115F /* FoodcamClassifier */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -275,6 +348,42 @@
 			productReference = D7BC01E013FF4013004D115F /* FoodcamClassifier */;
 			productType = "com.apple.product-type.tool";
 		};
+		D7BC028414001E3D004D115F /* test-classifiers */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D7BC029114001E3D004D115F /* Build configuration list for PBXNativeTarget "test-classifiers" */;
+			buildPhases = (
+				D7BC028514001E3D004D115F /* Sources */,
+				D7BC028A14001E3D004D115F /* Frameworks */,
+				D7BC028F14001E3D004D115F /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "test-classifiers";
+			productInstallPath = "$(HOME)/bin";
+			productName = FoodcamClassifier;
+			productReference = D7BC029414001E3D004D115F /* FoodcamClassifier */;
+			productType = "com.apple.product-type.tool";
+		};
+		D7BC044B1401E60F004D115F /* make-background */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D7BC04561401E60F004D115F /* Build configuration list for PBXNativeTarget "make-background" */;
+			buildPhases = (
+				D7BC044C1401E60F004D115F /* Sources */,
+				D7BC044E1401E60F004D115F /* Frameworks */,
+				D7BC04541401E60F004D115F /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "make-background";
+			productInstallPath = "$(HOME)/bin";
+			productName = FoodcamClassifier;
+			productReference = D7BC04591401E60F004D115F /* FoodcamClassifier */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -298,6 +407,8 @@
 				D7BC013313FF0035004D115F /* manual-classifier */,
 				D7BC01C013FF3FA9004D115F /* train-bovw */,
 				D7BC01D313FF4013004D115F /* build-vocabulary */,
+				D7BC028414001E3D004D115F /* test-classifiers */,
+				D7BC044B1401E60F004D115F /* make-background */,
 			);
 		};
 /* End PBXProject section */
@@ -336,6 +447,23 @@
 				D7BC01E713FF4040004D115F /* build_vocabolary.h in Sources */,
 				D7BC01E213FF4023004D115F /* build_vocabolary.cpp in Sources */,
 				D7BC020F13FF7902004D115F /* kmeans_trainer.cpp in Sources */,
+				D7BC028314001CA8004D115F /* test_classifiers.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D7BC028514001E3D004D115F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D7BC028914001E3D004D115F /* test_classifiers.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D7BC044C1401E60F004D115F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D7BC045B1401E624004D115F /* make_test_background_image.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -501,6 +629,72 @@
 			};
 			name = Release;
 		};
+		D7BC029214001E3D004D115F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INSTALL_PATH = /usr/local/bin;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\"$(SRCROOT)/../../Downloads/trunk/opencv/out/lib/Release\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\"",
+				);
+				PRODUCT_NAME = FoodcamClassifier;
+			};
+			name = Debug;
+		};
+		D7BC029314001E3D004D115F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = /usr/local/bin;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\"$(SRCROOT)/../../Downloads/trunk/opencv/out/lib/Release\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\"",
+				);
+				PRODUCT_NAME = FoodcamClassifier;
+			};
+			name = Release;
+		};
+		D7BC04571401E60F004D115F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INSTALL_PATH = /usr/local/bin;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\"$(SRCROOT)/../../Downloads/trunk/opencv/out/lib/Release\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\"",
+				);
+				PRODUCT_NAME = FoodcamClassifier;
+			};
+			name = Debug;
+		};
+		D7BC04581401E60F004D115F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = /usr/local/bin;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\"$(SRCROOT)/../../Downloads/trunk/opencv/out/lib/Release\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\"",
+				);
+				PRODUCT_NAME = FoodcamClassifier;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -545,6 +739,24 @@
 			buildConfigurations = (
 				D7BC01DE13FF4013004D115F /* Debug */,
 				D7BC01DF13FF4013004D115F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D7BC029114001E3D004D115F /* Build configuration list for PBXNativeTarget "test-classifiers" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D7BC029214001E3D004D115F /* Debug */,
+				D7BC029314001E3D004D115F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D7BC04561401E60F004D115F /* Build configuration list for PBXNativeTarget "make-background" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D7BC04571401E60F004D115F /* Debug */,
+				D7BC04581401E60F004D115F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
