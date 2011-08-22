@@ -64,7 +64,9 @@ void extract_training_samples(Ptr<FeatureDetector>& detector, BOWImgDescriptorEx
 #pragma omp for schedule(static) nowait
 	for(;!ifs->eof();)
 	{
+		#pragma omp critical
 		ifs->getline(buf, 255);
+		
 		string line(buf);
 		istringstream iss(line);
 		//		cout << line << endl;
