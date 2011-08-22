@@ -48,26 +48,23 @@ void trainSVM(map<string,Mat>& classes_training_data, string& file_postfix, int 
 }
 
 void extract_training_samples(Ptr<FeatureDetector>& detector, BOWImgDescriptorExtractor& bowide, map<string,Mat>& classes_training_data) {
-	Mat response_hist;
 	cout << "look in train data"<<endl;
 	char buf[255];
 	Ptr<ifstream> ifs(new ifstream("training.txt"));
 	int total_samples = 0;
 	string filepath;
-	Mat img;
-	vector<KeyPoint> keypoints;
 	vector<string> classes_names;
 	
-	
 	//try some multithreading
-#pragma omp parallel shared(classes_training_data,ifs) num_threads(10)
-	{
-		
-#pragma omp for schedule(static) nowait
-	for(;!ifs->eof();)
-	{
-		printf("Hello from thread %d, nthreads %d\n", omp_get_thread_num(), omp_get_num_threads());
-		
+	#pragma omp parallel for private(buf)
+	for(int i=0;i<1000;i++) {
+//		printf("Hello from thread %d, nthreads %d\n", omp_get_thread_num(), omp_get_num_threads());
+//		if(ifs->eof()) break;
+
+		vector<KeyPoint> keypoints;
+		Mat response_hist;
+		Mat img;
+
 		#pragma omp critical
 		ifs->getline(buf, 255);
 		
@@ -83,7 +80,6 @@ void extract_training_samples(Ptr<FeatureDetector>& detector, BOWImgDescriptorEx
 		if(r.width != 0) {
 			img = img(r); //crop to interesting region
 		}
-		cout << "."; cout.flush();
 		//		char c__[] = {(char)atoi(class_.c_str()),'\0'};
 		//		string c_(c__);
 		//		cout << c_; cout.flush();
@@ -92,19 +88,22 @@ void extract_training_samples(Ptr<FeatureDetector>& detector, BOWImgDescriptorEx
 		
 		detector->detect(img,keypoints);
 		bowide.compute(img, keypoints, response_hist);
-		
-		if(classes_training_data.count(class_) == 0) { //not yet created...
-			classes_training_data[class_].create(0,response_hist.cols,response_hist.type());
-			classes_names.push_back(class_);
+
+		cout << "."; cout.flush();
+
+		#pragma omp critical
+		{
+			if(classes_training_data.count(class_) == 0) { //not yet created...
+				classes_training_data[class_].create(0,response_hist.cols,response_hist.type());
+				classes_names.push_back(class_);
+			}
+			classes_training_data[class_].push_back(response_hist);
 		}
-		classes_training_data[class_].push_back(response_hist);
 		total_samples++;
-		
+
 		//		waitKey(0);
 	}
 	cout << endl;
-		
-	} //end parallel
 
 	cout << "save to file.."<<endl;
 	{
