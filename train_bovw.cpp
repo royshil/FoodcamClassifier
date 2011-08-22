@@ -47,7 +47,8 @@ int main(int argc, char** argv_) {
 	}
 	
 	cout << "train SVMs\n";
-	trainSVM(classes_training_data, argv[3], extractor->descriptorSize(), extractor->descriptorType());
+	string postfix = argv[2];
+	trainSVM(classes_training_data, postfix, bowide.descriptorSize(), bowide.descriptorType());
 
 	return 0;
 }
