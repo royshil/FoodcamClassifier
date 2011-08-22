@@ -9,12 +9,18 @@
 
 #include "train_bovw.h"
 
-int main(int argc, char** argv) {
+int main(int argc, char** argv_) {
+	vector<string> argv;for (int i = 0; i < argc; i++) {argv.push_back(argv_[i]);}
+	
+	if (argv.size() == 1) {
+		cout << "USAGE: train_bovw <vocabulary_file.yml> [prefix_for_output]"<<endl;
+		return 1;
+	}
 	
 	cout << "-------- train BOVW SVMs -----------" << endl;
 	cout << "read vocabulary form file"<<endl;
 	Mat vocabulary;
-	FileStorage fs("vocabulary_1000.yml", FileStorage::READ);
+	FileStorage fs(argv[1], FileStorage::READ);
 	fs["vocabulary"] >> vocabulary;
 	fs.release();	
 	
@@ -109,7 +115,12 @@ int main(int argc, char** argv) {
 		if(samples.rows == 0) continue; //phantom class?!
 		classes_classifiers[class_].train(samples_32f,labels);
 		
-		stringstream ss; ss << "SVM_classifier_" << class_ << ".yml";
+		stringstream ss; 
+		ss << "SVM_classifier_"; 
+		if(argv.size() > 2) ss << argv[3] << "_";
+		ss << class_ << ".yml";
 		classes_classifiers[class_].save(ss.str().c_str());
 	}
+	
+	return 0;
 }
