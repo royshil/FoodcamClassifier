@@ -5,6 +5,8 @@ FIND_PACKAGE( OpenCV 2.3 REQUIRED )
 message(${OpenCV_DIR})
 include_directories(${OpenCV_INCLUDE_DIRS})
 
+CMAKE_CXX_FLAGS( -fopenmp )
+
 ADD_EXECUTABLE( manual-classifier manual_classifier.cpp )
 TARGET_LINK_LIBRARIES( manual-classifier ${OpenCV_LIBS} )
 
