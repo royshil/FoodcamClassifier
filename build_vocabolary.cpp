@@ -83,7 +83,7 @@ int main(int argc, char** argv) {
 	cout << "cluster BOW features" << endl;
 	Mat vocabulary = bowtrainer.cluster();
 	
-	FileStorage fs1("vocabulary_1000.yml", FileStorage::WRITE);
+	FileStorage fs1("vocabulary_color_1000.yml", FileStorage::WRITE);
 	fs1 << "vocabulary" << vocabulary;
 	fs1.release();
 }
