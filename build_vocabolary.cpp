@@ -57,13 +57,13 @@ int main(int argc, char** argv) {
 		img = img(clipping_rect);
 		img_fg = img - bg_;
 		detector.detect(img_fg, keypoints);
-		{
-			Mat out; //img_fg.copyTo(out);
-			drawKeypoints(img, keypoints, out, Scalar(255));
-			imshow("fg",img_fg);
-			imshow("keypoints", out);
-			waitKey(0);
-		}
+//		{
+//			Mat out; //img_fg.copyTo(out);
+//			drawKeypoints(img, keypoints, out, Scalar(255));
+//			imshow("fg",img_fg);
+//			imshow("keypoints", out);
+//			waitKey(0);
+//		}
 		extractor->compute(img, keypoints, descriptors);
 		
 		training_descriptors.push_back(descriptors);
