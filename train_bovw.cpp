@@ -72,7 +72,7 @@ int main(int argc, char** argv_) {
 		}
 		char c__[] = {(char)atoi(class_.c_str()),'\0'};
 		string c_(c__);
-		cout << c_;
+		cout << c_; cout.flush();
 //		putText(img, c_, Point(20,20), CV_FONT_HERSHEY_PLAIN, 2.0, Scalar(255), 2);
 //		imshow("pic",img);
 		detector->detect(img,keypoints);
