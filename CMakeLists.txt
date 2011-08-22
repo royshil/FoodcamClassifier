@@ -8,7 +8,7 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 ADD_EXECUTABLE( manual-classifier manual_classifier.cpp )
 TARGET_LINK_LIBRARIES( manual-classifier ${OpenCV_LIBS} )
 
-ADD_EXECUTABLE( train-bovw train_bovw.cpp )
+ADD_EXECUTABLE( train-bovw train_bovw.cpp training_common.cpp )
 TARGET_LINK_LIBRARIES( train-bovw ${OpenCV_LIBS} )
 
 ADD_EXECUTABLE( build-vocabulary build_vocabolary.cpp )
@@ -22,3 +22,6 @@ TARGET_LINK_LIBRARIES( make-test-background ${OpenCV_LIBS} )
 
 ADD_EXECUTABLE( test-classifiers test_classifiers.cpp )
 TARGET_LINK_LIBRARIES( test-classifiers ${OpenCV_LIBS} )
+
+ADD_EXECUTABLE( train-SVM-alone train_SVM_alone.cpp training_common.cpp )
+TARGET_LINK_LIBRARIES( train-SVM-alone ${OpenCV_LIBS} )
