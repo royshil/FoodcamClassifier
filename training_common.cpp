@@ -58,7 +58,9 @@ void extract_training_samples(Ptr<FeatureDetector>& detector, BOWImgDescriptorEx
 	vector<KeyPoint> keypoints;
 	vector<string> classes_names;
 	
-#pragma omp parallel shared(classes_training_data,ifs)
+	
+	//try some multithreading
+#pragma omp parallel shared(classes_training_data,ifs) NUM_THREADS(10)
 	{
 		
 #pragma omp for schedule(static) nowait
@@ -105,7 +107,6 @@ void extract_training_samples(Ptr<FeatureDetector>& detector, BOWImgDescriptorEx
 	cout << "save to file.."<<endl;
 	{
 		FileStorage fs("training_samples.yml",FileStorage::WRITE);
-		fs << "classes" << classes_names;
 		for (map<string,Mat>::iterator it = classes_training_data.begin(); it != classes_training_data.end(); ++it) {
 			fs << (*it).first << (*it).second;
 		}
