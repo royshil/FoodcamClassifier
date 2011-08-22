@@ -66,6 +66,8 @@ void extract_training_samples(Ptr<FeatureDetector>& detector, BOWImgDescriptorEx
 #pragma omp for schedule(static) nowait
 	for(;!ifs->eof();)
 	{
+		printf("Hello from thread %d, nthreads %d\n", omp_get_thread_num(), omp_get_num_threads());
+		
 		#pragma omp critical
 		ifs->getline(buf, 255);
 		
