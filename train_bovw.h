@@ -24,3 +24,6 @@
 
 using namespace cv;
 using namespace std;
+
+void trainSVM(map<string,Mat>& classes_training_data, string& file_postfix, int response_cols, int response_type);
+void extract_training_samples(Ptr<FeatureDetector>& detector, BOWImgDescriptorExtractor& bowide, map<string,Mat>& classes_training_data);
