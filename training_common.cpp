@@ -62,7 +62,7 @@ void extract_training_samples(Ptr<FeatureDetector>& detector, BOWImgDescriptorEx
 	}
 	
 	//try some multithreading
-	#pragma omp parallel for
+	#pragma omp parallel for schedule(dynamic,10)
 	for(int i=0;i<lines.size();i++) {
 //		printf("Hello from thread %d, nthreads %d\n", omp_get_thread_num(), omp_get_num_threads());
 //		if(ifs->eof()) break;
@@ -77,6 +77,7 @@ void extract_training_samples(Ptr<FeatureDetector>& detector, BOWImgDescriptorEx
 		iss >> filepath;
 		Rect r; char delim; iss >> r.x >> delim >> r.y >> delim >> r.width >> delim >> r.height;
 		string class_; iss >> class_;
+		if(class_.size() == 0) continue;
 		
 		img = imread(filepath);
 		r &= Rect(0,0,img.cols,img.rows);
