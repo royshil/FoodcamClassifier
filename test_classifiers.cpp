@@ -249,7 +249,7 @@ int main(int argc, char** argv) {
 		}
 		cout << endl;
 		cout << "chosen class: " << max_class << endl;
-		cout << "manual class: "; for(int j_=0;j_<classes_.size();j_++) cout << classes_[i] << ",";
+		cout << "manual class: "; for(int j_=0;j_<classes_.size();j_++) cout << classes_[j_] << ",";
 		cout << endl;
 		
 		int j_=0;
