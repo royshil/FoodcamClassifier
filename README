@@ -7,17 +7,24 @@ Implementing BOVW method: Visual Categorization with Bags of Keypoints by Gabrie
 Using Opponent-Color SURF features (192 floats): Van de Sande et al., CGIV 2008 Color Descriptors for Object Category Recognition. (they used SIFT)
 Radial Basis Function SVMs for classification.
 
-This is basically a good primer to BOVW methods, which are dead simple.
+This is basically a primer to BOVW methods using OpenCV, which are dead simple.
+I tweaked the basic method by:
+	- using background subtraction (since these are pictures from a still camera).
+	- using a sliding window. This enables better multi-class decisions, and actually paves the path to image segmentation. 
+
 
 Compiling
 ---------
 Basically, just run:
 cmake -D CMAKE_CXX_FLAGS=-fopenmp . ; make -j4
 
+CMake should take you all the way, but I also have an .xcodeproj/ included.
+
 Working it
 ----------
 Get the dataset:
 http://fay.media.mit.edu/foodcamimages.zip
+Assume the dataset is now in the same directory, under foodcamimages/.
 
 
 Manually classify training and test:
@@ -52,3 +59,17 @@ Notes
 Some of the computation is sped up on multi-core machines by using OpenMP, so it's recommended to use it.
 
 
+Results
+-------
+This is the confusion matrix:
+classified ->	cookies	indian	italian	pizza	veggie+fruit	sandwiches
+cookies		56.3%	0.0%	4.3%	0.0%	13.5%		15.4%
+indian		0.0%	71.4%	6.4%	3.8%	3.4%		7.7%
+italian		0.0%	0.0%	63.8%	0.0%	14.6%		0.0%
+pizza		6.3%	0.0%	12.8%	92.3%	5.6%		15.4%
+veggie+fruit	0.0%	0.0%	2.1%	3.8%	49.4%		0.0%
+sandwiches	25.0%	14.3%	6.4%	0.0%	7.9%		61.5%
+
+Quick scan shows that it can classify Pizzas pretty good!
+The downfall are the veggie+fruit class, with less than 50% accuracy.
+Rest are lukewarm, but this can probably be attribued to the very small training set.
