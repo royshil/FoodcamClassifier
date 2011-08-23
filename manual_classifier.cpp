@@ -53,15 +53,67 @@ void onMouse( int event, int x, int y, int, void* )
     }
 }
 
+string char_to_class(char c) {
+		switch (c) {
+			case 'h':
+			case 'H':
+				return "chinese";
+				break;
+			case 'p':
+			case 'P':
+				return "pizza";
+				break;
+			case 'i':
+			case 'I':
+				return "indian";
+				break;
+			case 'w':
+			case 'W':
+				return "wraps";
+				break;
+			case 's':
+			case 'S':
+				return "sandwiches";
+				break;
+			case 'a':
+			case 'A':
+				return "salad";
+				break;
+			case 'c':
+			case 'C':
+				return "cookies";
+				break;
+			case 'm':
+			case 'M':
+				return "mexican";
+				break;
+			case 'f':
+			case 'F':
+				return "fruit_veggie";
+				break;
+			case 'l':
+			case 'L':
+				return "misc";
+				break;
+			case 't':
+			case 'T':
+				return "misc";
+				break;
+			default:
+				return "misc";
+		}
+}
 
 int main(int argc, char * const argv[]) {
 
-	string dir = "/Users/royshilkrot/Downloads/foodcamimages/images", filepath;
+	if(argc < 3) {
+		cerr << "USAGE: manual_classifier <input_directory/> <output_file.txt>"<<endl;
+		return 1;
+	}
+	string dir(argv[1]), filepath;
 	DIR *dp;
 	struct dirent *dirp;
 	struct stat filestat;
-	
-	dp = opendir( dir.c_str() );
 	
 	cout << "C'h'inease\nI't'alian\n'P'izza\n'I'ndian\n'W'raps\n'S'andwiches\nS'a'lad\n'C'ookies/Cake\n'M'exican\n'F'ruit/Veggies\nMisce'l'laneous" << endl;
 	
@@ -70,7 +122,7 @@ int main(int argc, char * const argv[]) {
 	namedWindow("pic");
 	setMouseCallback( "pic", onMouse, 0 );
 	
-	ifstream ifs("training.txt",ifstream::in);
+	ifstream ifs(argv[2],ifstream::in);
 	
 	set<string> files_already_listed;
 	if (ifs.is_open() && !ifs.eof()) {
@@ -84,11 +136,12 @@ int main(int argc, char * const argv[]) {
 	}
 	ifs.close();
 	
-	ofstream ofs("training.txt", fstream::app);
+	ofstream ofs(argv[2], fstream::app);
 	
 	int count = 0;
 	Mat img;
 	bool running = true;
+	dp = opendir( dir.c_str() );
 	while (count++ < 1000 && (dirp = readdir( dp )) && running)
     {
 		filepath = dir + "/" + dirp->d_name;
@@ -118,7 +171,7 @@ int main(int argc, char * const argv[]) {
 			} else if (c != -1) {
 				ofs << filepath << " " << 
 					selection.x << "," << selection.y << "," << selection.width << "," << selection.height <<
-					" " << c << endl;
+					" " << char_to_class(c) << endl;
 				selection = Rect();
 				break;
 			}
