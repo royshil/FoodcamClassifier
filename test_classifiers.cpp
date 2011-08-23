@@ -13,13 +13,7 @@ int main(int argc, char** argv) {
 	string filepath;
 	
 	cout << "------- test ---------\n";
-	
-	//evaluate
-//	dir = "foodcamimages/TEST";
-//	dp = opendir( dir.c_str() );
-//	count = 0;
-////	Mat response_hist;
-	
+		
 	ifstream ifs("test.txt",ifstream::in);
 	char buf[255];
 	vector<string> lines; 
@@ -42,19 +36,7 @@ int main(int argc, char** argv) {
 		}
 	}
 	
-//	while ((dirp = readdir( dp )))
 	for (int i = 0; i < lines.size(); i++) {
-//		count++;
-//		if(count > 65) break;
-//		if(count < 25) continue;
-//		
-//		filepath = dir + "/" + dirp->d_name;
-//		
-//		// If the file is a directory (or is in some way invalid) we'll skip it 
-//		if (stat( filepath.c_str(), &filestat )) continue;
-//		if (S_ISDIR( filestat.st_mode ))         continue;
-//		if (dirp->d_name[0] == '.')					 continue; //hidden file!
-		
 		string line(lines[i]);
 		cout << line << endl;
 		istringstream iss(line);

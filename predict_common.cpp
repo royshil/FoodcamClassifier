@@ -9,6 +9,20 @@
 
 #include "predict_common.h"
 
+FoodcamPredictor::FoodcamPredictor() {
+	initSVMs();
+	initColors();
+	initVocabulary();
+	Ptr<FeatureDetector > _detector(new SurfFeatureDetector());
+	Ptr<DescriptorMatcher > _matcher(new BruteForceMatcher<L2<float> >());
+	Ptr<DescriptorExtractor > _extractor(new OpponentColorDescriptorExtractor(Ptr<DescriptorExtractor>(new SurfDescriptorExtractor())));
+	matcher = _matcher;
+	detector = _detector;
+	extractor = _extractor;
+	bowide = Ptr<BOWImgDescriptorExtractor>(new BOWImgDescriptorExtractor(extractor,matcher));
+	bowide->setVocabulary(vocabulary);
+}
+
 void FoodcamPredictor::initColors() {
 	int ccount = 0;
 	for (map<string,CvSVM>::iterator it = classes_classifiers.begin(); it != classes_classifiers.end(); ++it) {
@@ -27,7 +41,6 @@ void FoodcamPredictor::initSVMs() {
 	dir = ".";
 	dp = opendir( dir.c_str() );
 	
-	map<string,CvSVM> classes_classifiers;
 	while ((dirp = readdir( dp )))
     {
 		filepath = dir + "/" + dirp->d_name;
@@ -48,7 +61,6 @@ void FoodcamPredictor::initSVMs() {
 
 void FoodcamPredictor::initVocabulary() {
 	cout << "read vocabulary form file"<<endl;
-	Mat vocabulary;
 	FileStorage fs("vocabulary_color_1000.yml", FileStorage::READ);
 	fs["vocabulary"] >> vocabulary;
 	fs.release();	
@@ -107,7 +119,7 @@ void FoodcamPredictor::evaluateOneImage(Mat& __img, vector<string>& out_classes)
 		vector<KeyPoint> keypoints;
 		detector->detect(img,keypoints);
 		//				vector<vector<int> > pointIdxsOfClusters;
-		bowide.compute(img, keypoints, response_hist); //, &pointIdxsOfClusters);
+		bowide->compute(img, keypoints, response_hist); //, &pointIdxsOfClusters);
 		if (response_hist.cols == 0 || response_hist.rows == 0) {
 			continue;
 		}
@@ -157,18 +169,36 @@ void FoodcamPredictor::evaluateOneImage(Mat& __img, vector<string>& out_classes)
 	}
 	
 	cout << endl << "found classes: ";
-	float max_class_f = FLT_MIN; string max_class;
+	float max_class_f = FLT_MIN, max_class_f1 = FLT_MIN; string max_class, max_class1;
+	vector<float> scores;
 	for (map<string,pair<int,float> >::iterator it=found_classes.begin(); it != found_classes.end(); ++it) {
 		float score = (float)((*it).second.first) * (*it).second.second;
+		scores.push_back(score);
 		cout << (*it).first << "(" << score << "),"; //<< (*it).second.first << "," << (*it).second.second / (float)(*it).second.first << "), ";
-		if(score > max_class_f) {
+		if(score > max_class_f) { //1st place thrown off
+			max_class_f1 = max_class_f;
+			max_class1 = max_class;
+			
 			max_class_f = score;
 			max_class = (*it).first;
+		} else if (score >  max_class_f1) {	//2nd place thrown off
+			max_class_f1 = score;
+			max_class1 = (*it).first;
 		}
 	}
 	cout << endl;
-	if(max_class.compare("cake")==0) max_class = "cookies";
-	if(max_class.compare("fruit")==0) max_class = "fruit_veggie";
+
+	normalizeClassname(max_class);
+	normalizeClassname(max_class1);
+
+	Scalar mean_,stddev_;
+	meanStdDev(Mat(scores), mean_, stddev_);
+	out_classes.clear();
+	out_classes.push_back(max_class);
+	if(stddev_.val[0] < 10) {
+		//variance is low, so result is undecicive, we should take both max-classes.
+		out_classes.push_back(max_class1);
+	}	
 	
-	cout << "chosen class: " << max_class << endl;
+	cout << "chosen class: " << max_class << ", (" << max_class1 << "?)" << endl;
 }

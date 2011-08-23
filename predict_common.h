@@ -29,28 +29,20 @@ using namespace std;
 
 class FoodcamPredictor {
 public:	
-	FoodcamPredictor():
-		detector(new SurfFeatureDetector()), 
-		matcher(new BruteForceMatcher<L2<float> >()),
-		extractor(new OpponentColorDescriptorExtractor(Ptr<DescriptorExtractor>(new SurfDescriptorExtractor()))),
-		bowide(extractor,matcher)
-	{
-		initSVMs();
-		initVocabulary();
-		bowide.setVocabulary(vocabulary);
-		initColors();
-		background = imread("background.png");
-	}		
+	FoodcamPredictor();
 	void evaluateOneImage(Mat& __img, vector<string>& out_classes);
 	map<string,CvSVM>& getClassesClassifiers() { return classes_classifiers; }
-	
+	void normalizeClassname(string& max_class) { 
+		if(max_class.compare("cake")==0) max_class = "cookies";
+		if(max_class.compare("fruit")==0) max_class = "fruit_veggie";
+	}
 private:
 	void initColors();
 	void initSVMs();
 	void initVocabulary();
 	
 	Ptr<FeatureDetector > detector;
-	BOWImgDescriptorExtractor bowide;
+	Ptr<BOWImgDescriptorExtractor > bowide;
 	Ptr<DescriptorMatcher > matcher;
 	Ptr<DescriptorExtractor > extractor;
 	map<string,CvSVM> classes_classifiers;
