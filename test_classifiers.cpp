@@ -274,11 +274,11 @@ int main(int argc, char** argv) {
     }
 	
 	for(map<string,map<string,int> >::iterator it = confusion_matrix.begin(); it != confusion_matrix.end(); ++it) {
-		//cout << (*it).first << ": ";
+		cout << (*it).first << " -> ";
 		for(map<string,int>::iterator it1 = (*it).second.begin(); it1 != (*it).second.end(); ++it1) {
-			cout << (*it1).second << ",";
+			cout << (*it1).first) << ":" << (*it1).second << endl;
 		}
-		cout << endl;
+//		cout << endl;
 	}
 	
 	cout << endl;
