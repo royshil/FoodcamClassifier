@@ -78,6 +78,9 @@ int main(int argc, char** argv) {
 		
 		Mat out; __img.copyTo(out);
 		putText(out, max_class[0] + "!", Point(out.cols/2-100,out.rows/2-30), CV_FONT_HERSHEY_PLAIN, 3.0, Scalar(255), 2);
+		if(max_class.size()>1) {
+			putText(out, max_class[1] + "?", Point(out.cols/2-100,out.rows/2+30), CV_FONT_HERSHEY_PLAIN, 3.0, Scalar(255), 2);
+		}
 		imshow("out",out);
 		waitKey(0);
 		imwrite("output/"+filepath, out);

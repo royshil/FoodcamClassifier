@@ -168,6 +168,7 @@ void FoodcamPredictor::evaluateOneImage(Mat& __img, vector<string>& out_classes)
 		}
 	}
 	
+	//TODO: there is some weirdness here!!! sometimes a class is not chosen.
 	cout << endl << "found classes: ";
 	float max_class_f = FLT_MIN, max_class_f1 = FLT_MIN; string max_class, max_class1;
 	vector<float> scores;
