@@ -102,8 +102,8 @@ int main(int argc, char** argv) {
 	map<string,map<string,int> > confusion_matrix;
 	for (map<string,CvSVM>::iterator it = classes_classifiers.begin(); it != classes_classifiers.end(); ++it) {
 		for (map<string,CvSVM>::iterator it1 = classes_classifiers.begin(); it1 != classes_classifiers.end(); ++it1) {
-			string class1 = ((*it).first.compare("cake")==0) ? "cookies" : (*it).first;
-			string class2 = ((*it1).first.compare("cake")==0) ? "cookies" : (*it1).first;
+			string class1 = ((*it).first.compare("cake")==0) ? "cookies" : ((*it).first.compare("fruit")==0) ? "fruit_veggie" : (*it).first;
+			string class2 = ((*it1).first.compare("cake")==0) ? "cookies" : ((*it1).first.compare("fruit")==0) ? "fruit_veggie" : (*it1).first;
 			confusion_matrix[class1][class2] = 0;
 		}
 	}
@@ -248,13 +248,15 @@ int main(int argc, char** argv) {
 			}
 		}
 		cout << endl;
+		if(max_class.compare("cake")==0) max_class = "cookies";
+		if(max_class.compare("fruit")==0) max_class = "fruit_veggie";
+
 		cout << "chosen class: " << max_class << endl;
 		cout << "manual class: "; for(int j_=0;j_<classes_.size();j_++) cout << classes_[j_] << ",";
 		cout << endl;
 		
 		int j_=0;
 		for(;j_<classes_.size();j_++) {
-			if(max_class.compare("cake")==0) max_class = "cookies";
 			if(classes_[j_].compare(max_class)==0) //got a hit
 			{
 				confusion_matrix[max_class][classes_[j_]]++;
