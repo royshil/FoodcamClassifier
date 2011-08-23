@@ -74,7 +74,7 @@ int main(int argc, char** argv) {
 	
 	cout << "Total descriptors: " << training_descriptors.rows << endl;
 	
-	FileStorage fs("training _descriptors.yml", FileStorage::WRITE);
+	FileStorage fs("training_descriptors.yml", FileStorage::WRITE);
 	fs << "training_descriptors" << training_descriptors;
 	fs.release();
     

@@ -1,0 +1,54 @@
+Foodcam Classifier
+==================
+A Bag Of Visual Words classifier for MIT Media Lab's Foodcam.
+Built using OpenCV 2.3
+
+Implementing BOVW method: Visual Categorization with Bags of Keypoints by Gabriella Csurka, Christopher R. Dance, Lixin Fan, Jutta Willamowski, Cedric Bray, 2004.
+Using Opponent-Color SURF features (192 floats): Van de Sande et al., CGIV 2008 Color Descriptors for Object Category Recognition. (they used SIFT)
+Radial Basis Function SVMs for classification.
+
+This is basically a good primer to BOVW methods, which are dead simple.
+
+Compiling
+---------
+Basically, just run:
+cmake -D CMAKE_CXX_FLAGS=-fopenmp . ; make -j4
+
+Working it
+----------
+Get the dataset:
+http://fay.media.mit.edu/foodcamimages.zip
+
+
+Manually classify training and test:
+./manual-classifier foodcamimages/TRAIN/ train.txt
+./manual-classifier foodcamimages/TEST/ test.txt
+(or you can use my manual classification included... lazy)
+
+
+Create a background image:
+./make-test-background
+
+
+Build the vocabulary: (this will take a very very long time, KMeans on 1.3Million 192-long vectors to find 1000 cluster-centers...)
+./build-vocabulary
+
+(you may also like to use ./kmeans-trainer, if you break the operation before KMeans finished, which may take more than 10 hours)
+
+
+Train the classifiers:
+./train-bovw vocabulary_color_1000.yml with_color
+
+(you may also make use of './train-SVM-alone', if you just wanna tweak the SVM parameters)
+
+
+Test your work:
+./test-classifiers 
+(it will output the confusion matrix in neighbors list form)
+
+
+Notes
+-----
+Some of the computation is sped up on multi-core machines by using OpenMP, so it's recommended to use it.
+
+
