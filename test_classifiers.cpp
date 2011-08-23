@@ -118,9 +118,14 @@ int main(int argc, char** argv) {
 		istringstream iss(line);
 		
 		iss >> filepath;
-		Rect r; char delim; iss >> r.x >> delim >> r.y >> delim >> r.width >> delim >> r.height;
-		string class_; iss >> class_; //class_ = "class_" + class_;
-		if(class_.size() == 0) continue;
+//		Rect r; char delim; iss >> r.x >> delim >> r.y >> delim >> r.width >> delim >> r.height;
+		vector<string> classes_; 
+		while (!iss.eof()) {
+			string class_; iss >> class_;
+			classes_.push_back(class_);
+		}
+		
+		if(classes_.size() == 0) continue;
 		
 		cout << "eval file " << filepath << endl;
 		
@@ -227,7 +232,7 @@ int main(int argc, char** argv) {
 			cout << (*it).first << "(" << (*it).second << "), ";
 		}
 		cout << endl;
-		cout << "manual class: " << class_;
+		cout << "manual class: "; for(int i=0;i<classes_.size();i++) cout << classes_[i] << ",";
 		cout << endl;
 		cvtColor(copy, copy, CV_HSV2BGR);
 		imshow("pic", copy);
