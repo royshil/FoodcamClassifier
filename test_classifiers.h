@@ -7,3 +7,4 @@
  *
  */
 
+#include "predict_common.h"

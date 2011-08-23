@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8DD76F650486A84900D96B5E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* main.cpp */; settings = {ATTRIBUTES = (); }; };
 		8DD76F6A0486A84900D96B5E /* FoodcamClassifier.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859E8B029090EE04C91782 /* FoodcamClassifier.1 */; };
+		D79318151404316D00C2209B /* predict_common.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D79318141404316D00C2209B /* predict_common.cpp */; };
 		D7BC00A413FEE61A004D115F /* libopencv_ml.2.3.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BC00A313FEE61A004D115F /* libopencv_ml.2.3.1.dylib */; };
 		D7BC013713FF0035004D115F /* libopencv_core.2.3.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BCFF1213FE37FD004D115F /* libopencv_core.2.3.1.dylib */; };
 		D7BC013813FF0035004D115F /* libopencv_features2d.2.3.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BCFF1713FE3812004D115F /* libopencv_features2d.2.3.1.dylib */; };
@@ -135,6 +136,8 @@
 		08FB7796FE84155DC02AAC07 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8DD76F6C0486A84900D96B5E /* FoodcamClassifier */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = FoodcamClassifier; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6859E8B029090EE04C91782 /* FoodcamClassifier.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = FoodcamClassifier.1; sourceTree = "<group>"; };
+		D79318131404316D00C2209B /* predict_common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = predict_common.h; sourceTree = "<group>"; };
+		D79318141404316D00C2209B /* predict_common.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = predict_common.cpp; sourceTree = "<group>"; };
 		D7BC00A313FEE61A004D115F /* libopencv_ml.2.3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_ml.2.3.1.dylib; path = usr/local/lib/libopencv_ml.2.3.1.dylib; sourceTree = SDKROOT; };
 		D7BC014013FF0035004D115F /* FoodcamClassifier */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = FoodcamClassifier; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7BC01BD13FF3F9F004D115F /* train_bovw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = train_bovw.h; sourceTree = "<group>"; };
@@ -280,6 +283,8 @@
 				D7BC04491401E5FF004D115F /* make_test_background_image.h */,
 				D7BC044A1401E5FF004D115F /* make_test_background_image.cpp */,
 				D7BC060D1402DB5C004D115F /* training_common.cpp */,
+				D79318131404316D00C2209B /* predict_common.h */,
+				D79318141404316D00C2209B /* predict_common.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -507,6 +512,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7BC028914001E3D004D115F /* test_classifiers.cpp in Sources */,
+				D79318151404316D00C2209B /* predict_common.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
