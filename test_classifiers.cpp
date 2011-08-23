@@ -211,14 +211,14 @@ int main(int argc, char** argv) {
 					}
 				}
 //				cout << "best class: " << minclass << " ("<<minf<<")"<<endl;
-				cout << ".";
+				cout << "."; cout.flush();
 				//circle(copy, Point(x,y), 5, classes_colors[minclass], CV_FILLED);
 				float dim = 1.0f - MAX(MIN(minf - 0.8f,0.3f),0.0f) / 0.3f; //dimming the color: [0.8,1.1] -> [0.0,1.0]
 				Scalar color_(classes_colors[minclass].val[0], classes_colors[minclass].val[1], classes_colors[minclass].val[2] * dim); 
 				
 				#pragma omp critical
 				{
-					putText(copy, minclass.substr(0, 2), Point(x,y), CV_FONT_HERSHEY_PLAIN, 2.0, color_, 2);
+//					putText(copy, minclass.substr(0, 2), Point(x,y), CV_FONT_HERSHEY_PLAIN, 2.0, color_, 2);
 					found_classes[minclass]++;
 				}
 			}
@@ -234,9 +234,11 @@ int main(int argc, char** argv) {
 		cout << endl;
 		cout << "manual class: "; for(int i=0;i<classes_.size();i++) cout << classes_[i] << ",";
 		cout << endl;
-		cvtColor(copy, copy, CV_HSV2BGR);
-		imshow("pic", copy);
-		 waitKey(0);
+
+//		cvtColor(copy, copy, CV_HSV2BGR);
+//		imshow("pic", copy);
+//		 waitKey(0);
+
 		//TODO: sliding window on the image to crop smaller secions and classify each section (segmentation? booya)
 		
 		//		cout << ".";
