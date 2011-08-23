@@ -114,6 +114,7 @@ int main(int argc, char** argv) {
 //		if (dirp->d_name[0] == '.')					 continue; //hidden file!
 		
 		string line(lines[i]);
+		cout << line << endl;
 		istringstream iss(line);
 		
 		iss >> filepath;
