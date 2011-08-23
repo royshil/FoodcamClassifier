@@ -49,7 +49,7 @@ int main(int argc, char** argv) {
 		if (S_ISDIR( filestat.st_mode ))         continue;
 		if (filepath.find("SVM_classifier_with_color") != string::npos)
 		{
-			string class_ = filepath.substr(filepath.rfind('_')+1,filepath.rfind('.')-filepath.rfind('_'));
+			string class_ = filepath.substr(filepath.rfind('_')+1,filepath.rfind('.')-filepath.rfind('_')-1);
 			cout << "load " << filepath << ", class: " << class_ << endl;
 			classes_classifiers.insert(pair<string,CvSVM>(class_,CvSVM()));
 			classes_classifiers[class_].load(filepath.c_str());
@@ -98,6 +98,15 @@ int main(int argc, char** argv) {
 	}	
 	ifs.close();
 	cout << "total " << lines.size() << " samples to scan" <<endl;
+	
+	map<string,map<string,int> > confusion_matrix;
+	for (map<string,CvSVM>::iterator it = classes_classifiers.begin(); it != classes_classifiers.end(); ++it) {
+		for (map<string,CvSVM>::iterator it1 = classes_classifiers.begin(); it1 != classes_classifiers.end(); ++it1) {
+			string class1 = ((*it).first.compare("cake")==0) ? "cookies" : (*it).first;
+			string class2 = ((*it1).first.compare("cake")==0) ? "cookies" : (*it1).first;
+			confusion_matrix[class1][class2] = 0;
+		}
+	}
 	
 	Mat background = imread("background.png");
 //	while ((dirp = readdir( dp )))
@@ -157,7 +166,7 @@ int main(int argc, char** argv) {
 		vector<Point> check_points;
 		//Sliding window approach..
 		int winsize = 300;
-		map<string,int> found_classes;
+		map<string,pair<int,float> > found_classes;
 		for (int x=0; x<__img.cols; x+=winsize/4) {
 			for (int y=0; y<__img.rows; y+=winsize/4) {
 				if (fg_mask.at<uchar>(y,x) == 0) {
@@ -201,10 +210,10 @@ int main(int argc, char** argv) {
 				float minf = FLT_MAX; string minclass;
 				for (map<string,CvSVM>::iterator it = classes_classifiers.begin(); it != classes_classifiers.end(); ++it) {
 					float res = (*it).second.predict(response_hist,true);
-						if ((*it).first == "misc.") {
-							//						cout << "misc = " << res << endl;
-							continue;
-						}
+					if ((*it).first == "misc" && res > 0.9) {
+						continue;
+					}
+					if(res > 1.0) continue;
 					if (res < minf) {
 						minf = res;
 						minclass = (*it).first;
@@ -219,7 +228,8 @@ int main(int argc, char** argv) {
 				#pragma omp critical
 				{
 //					putText(copy, minclass.substr(0, 2), Point(x,y), CV_FONT_HERSHEY_PLAIN, 2.0, color_, 2);
-					found_classes[minclass]++;
+					found_classes[minclass].first++;
+					found_classes[minclass].second += minf;
 				}
 			}
 			catch (cv::Exception) {
@@ -228,12 +238,30 @@ int main(int argc, char** argv) {
 		}
 		
 		cout << endl << "found classes: ";
-		for (map<string,int>::iterator it=found_classes.begin(); it != found_classes.end(); ++it) {
-			cout << (*it).first << "(" << (*it).second << "), ";
+		int max_class_i = 0; string max_class;
+		for (map<string,pair<int,float> >::iterator it=found_classes.begin(); it != found_classes.end(); ++it) {
+			cout << (*it).first << "(" << (*it).second.first << "," << (*it).second.second / (float)(*it).second.first << "), ";
+			if((*it).second.first > max_class_i) {
+				max_class_i = (*it).second.first;
+				max_class = (*it).first;
+			}
 		}
 		cout << endl;
+		cout << "chosen class: " << max_class << endl;
 		cout << "manual class: "; for(int i=0;i<classes_.size();i++) cout << classes_[i] << ",";
 		cout << endl;
+		
+		int i=0;
+		for(;i<classes_.size();i++) {
+			if(max_class.compare("cake")==0) max_class = "cookies";
+			if(classes_[i].compare(max_class)==0) //got a hit
+			{
+				confusion_matrix[max_class][classes_[i]]++;
+				break;
+			}
+		}
+		if(i==classes_.size()) //no hit was found, just use any class
+			confusion_matrix[max_class][classes_[0]]++;
 
 //		cvtColor(copy, copy, CV_HSV2BGR);
 //		imshow("pic", copy);
@@ -243,6 +271,15 @@ int main(int argc, char** argv) {
 		
 		//		cout << ".";
     }
+	
+	for(map<string,map<string,int> >::iterator it = confusion_matrix.begin(); it != confusion_matrix.end(); ++it) {
+		//cout << (*it).first << ": ";
+		for(map<string,int>::iterator it1 = (*it).second.begin(); it1 != (*it).second.end(); ++it1) {
+			cout << (*it1).second << ",";
+		}
+		cout << endl;
+	}
+	
 	cout << endl;
 	closedir( dp );
 
