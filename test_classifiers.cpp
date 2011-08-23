@@ -97,6 +97,7 @@ int main(int argc, char** argv) {
 		lines.push_back(buf);
 	}	
 	ifs.close();
+	cout << "total " << lines.size() << " samples to scan" <<endl;
 	
 	Mat background = imread("background.png");
 //	while ((dirp = readdir( dp )))
@@ -151,8 +152,8 @@ int main(int argc, char** argv) {
 		//Sliding window approach..
 		int winsize = 300;
 		map<string,int> found_classes;
-		for (int x=0; x<__img.cols; x+=winsize/15) {
-			for (int y=0; y<__img.rows; y+=winsize/15) {
+		for (int x=0; x<__img.cols; x+=winsize/4) {
+			for (int y=0; y<__img.rows; y+=winsize/4) {
 				if (fg_mask.at<uchar>(y,x) == 0) {
 					continue;
 				}

@@ -97,7 +97,7 @@ string char_to_class(char c) {
 				break;
 			case 't':
 			case 'T':
-				return "misc";
+				return "italian";
 				break;
 			default:
 				return "misc";
@@ -152,7 +152,9 @@ int main(int argc, char * const argv[]) {
 		if (dirp->d_name[0] == '.')					 continue; //hidden file!
 		if (files_already_listed.count(filepath)>0) continue; //already did that one
 		
+		ofs << filepath;
 		img = imread(filepath);
+		Point text_place(20,40);
 		while (true) {
 			img.copyTo(image);
 			if( selection.width > 0 && selection.height > 0 )
@@ -164,16 +166,18 @@ int main(int argc, char * const argv[]) {
 			int c = waitKey(10);
 			
 			if (c == ' ') {
+				ofs << endl;
 				break;
 			} else if (c == 27) {
 				running = false;
 				break;
 			} else if (c != -1) {
-				ofs << filepath << " " << 
-					selection.x << "," << selection.y << "," << selection.width << "," << selection.height <<
-					" " << char_to_class(c) << endl;
+				if(selection.width != 0)
+					ofs << " " << selection.x << "," << selection.y << "," << selection.width << "," << selection.height;
+				ofs << " " << char_to_class(c);
+				putText(img, char_to_class(c), text_place, CV_FONT_HERSHEY_PLAIN, 3.0, Scalar(255), 2);
+				text_place += Point(0,40);
 				selection = Rect();
-				break;
 			}
 		}
     }
