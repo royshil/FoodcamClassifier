@@ -156,8 +156,9 @@ int main(int argc, char** argv) {
 //			waitKey(0);
 //		}
 
-		__img = __img(Rect(100,100,640-200,480-100));		//crop off top section
-		fg_mask = fg_mask(Rect(100,100,640-200,480-100));
+		Rect crop_rect(0,100,640,480-100);
+		__img = __img(crop_rect);		//crop off top section
+		fg_mask = fg_mask(crop_rect);
 		
 		//_img.create(__img.size(), __img.type());
 //		cvtColor(__img, _img, CV_BGR2GRAY);
@@ -165,8 +166,8 @@ int main(int argc, char** argv) {
 		Mat copy; cvtColor(__img, copy, CV_BGR2HSV);
 
 		vector<Point> check_points;
-		//Sliding window approach..
-		int winsize = 300;
+		//Sliding window approach.. (creating a vector here to ease the OMP parallel for-loop)
+		int winsize = 200;
 		map<string,pair<int,float> > found_classes;
 		for (int x=0; x<__img.cols; x+=winsize/4) {
 			for (int y=0; y<__img.rows; y+=winsize/4) {
@@ -178,6 +179,8 @@ int main(int argc, char** argv) {
 		}
 		
 		cout << "to check: " << check_points.size() << " points"<<endl;
+		
+		Mat seg = Mat::zeros(copy.size(),CV_8UC3);
 		
 		#pragma omp parallel for
 		for (int i = 0; i < check_points.size(); i++) {
@@ -228,7 +231,8 @@ int main(int argc, char** argv) {
 				
 				#pragma omp critical
 				{
-//					putText(copy, minclass.substr(0, 2), Point(x,y), CV_FONT_HERSHEY_PLAIN, 2.0, color_, 2);
+					putText(copy, minclass.substr(0, 4), Point(x-35,y+10), CV_FONT_HERSHEY_PLAIN, 2.0, Scalar(0,0,255), 2);
+					circle(seg, check_points[i], winsize/5, color_, CV_FILLED);
 					found_classes[minclass].first++;
 					found_classes[minclass].second += minf;
 				}
@@ -239,11 +243,12 @@ int main(int argc, char** argv) {
 		}
 		
 		cout << endl << "found classes: ";
-		int max_class_i = 0; string max_class;
+		float max_class_f = 0; string max_class;
 		for (map<string,pair<int,float> >::iterator it=found_classes.begin(); it != found_classes.end(); ++it) {
-			cout << (*it).first << "(" << (*it).second.first << "," << (*it).second.second / (float)(*it).second.first << "), ";
-			if((*it).second.first > max_class_i) {
-				max_class_i = (*it).second.first;
+			float score = (*it).second.first * (*it).second.second;
+			cout << (*it).first << "(" << score << "),"; //<< (*it).second.first << "," << (*it).second.second / (float)(*it).second.first << "), ";
+			if(score > max_class_f) {
+				max_class_f = score;
 				max_class = (*it).first;
 			}
 		}
@@ -265,10 +270,19 @@ int main(int argc, char** argv) {
 		}
 		if(j_==classes_.size()) //no hit was found, just use any class
 			confusion_matrix[max_class][classes_[0]]++;
-
-//		cvtColor(copy, copy, CV_HSV2BGR);
-//		imshow("pic", copy);
-//		 waitKey(0);
+		
+		cvtColor(copy, copy, CV_HSV2BGR);
+		cvtColor(seg, seg, CV_HSV2BGR);
+		addWeighted(seg, 0.2, copy, 0.8, 1.0, seg);
+		//imshow("seg", seg);
+		
+		Mat out; __img.copyTo(out);
+		stringstream ss; ss << max_class << "!";
+		putText(out, ss.str(), Point(out.cols/2-100,out.rows/2-30), CV_FONT_HERSHEY_PLAIN, 3.0, Scalar(255), 2);
+		//imshow("out",out);
+		//waitKey(0);
+		imwrite("output/"+filepath, out);
+		
 
 		//TODO: sliding window on the image to crop smaller secions and classify each section (segmentation? booya)
 		
