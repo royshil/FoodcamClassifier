@@ -136,9 +136,10 @@ int main(int argc, char** argv) {
 		
 		if(classes_.size() == 0) continue;
 		
-		cout << "eval file " << filepath << endl;
+		cout << "eval file " << filepath << " (" << i << "/" << lines.size() << ")" << endl;
 		
 		Mat __img = imread(filepath),_img;
+		if(__img.size() != Size(640,480)) continue;
 		
 		Mat diff = (__img - background), diff_8UC1;
 		
@@ -248,19 +249,19 @@ int main(int argc, char** argv) {
 		}
 		cout << endl;
 		cout << "chosen class: " << max_class << endl;
-		cout << "manual class: "; for(int i=0;i<classes_.size();i++) cout << classes_[i] << ",";
+		cout << "manual class: "; for(int j_=0;j_<classes_.size();j_++) cout << classes_[i] << ",";
 		cout << endl;
 		
-		int i=0;
-		for(;i<classes_.size();i++) {
+		int j_=0;
+		for(;j_<classes_.size();j_++) {
 			if(max_class.compare("cake")==0) max_class = "cookies";
-			if(classes_[i].compare(max_class)==0) //got a hit
+			if(classes_[j_].compare(max_class)==0) //got a hit
 			{
-				confusion_matrix[max_class][classes_[i]]++;
+				confusion_matrix[max_class][classes_[j_]]++;
 				break;
 			}
 		}
-		if(i==classes_.size()) //no hit was found, just use any class
+		if(j_==classes_.size()) //no hit was found, just use any class
 			confusion_matrix[max_class][classes_[0]]++;
 
 //		cvtColor(copy, copy, CV_HSV2BGR);
