@@ -10,6 +10,7 @@
 #include "predict_common.h"
 
 FoodcamPredictor::FoodcamPredictor() {
+	debug = false;
 	initSVMs();
 	initColors();
 	initVocabulary();
@@ -22,7 +23,6 @@ FoodcamPredictor::FoodcamPredictor() {
 	bowide = Ptr<BOWImgDescriptorExtractor>(new BOWImgDescriptorExtractor(extractor,matcher));
 	bowide->setVocabulary(vocabulary);
 	background = imread("background.png");
-	debug = true;
 }
 
 void FoodcamPredictor::initColors() {
