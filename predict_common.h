@@ -36,10 +36,14 @@ public:
 		if(max_class.compare("cake")==0) max_class = "cookies";
 		if(max_class.compare("fruit")==0) max_class = "fruit_veggie";
 	}
+	void setDebug(bool _b) { debug = _b;}
+	
 private:
 	void initColors();
 	void initSVMs();
 	void initVocabulary();
+	
+	bool debug;
 	
 	Ptr<FeatureDetector > detector;
 	Ptr<BOWImgDescriptorExtractor > bowide;

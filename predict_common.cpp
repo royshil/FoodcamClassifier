@@ -22,13 +22,14 @@ FoodcamPredictor::FoodcamPredictor() {
 	bowide = Ptr<BOWImgDescriptorExtractor>(new BOWImgDescriptorExtractor(extractor,matcher));
 	bowide->setVocabulary(vocabulary);
 	background = imread("background.png");
+	debug = true;
 }
 
 void FoodcamPredictor::initColors() {
 	int ccount = 0;
 	for (map<string,CvSVM>::iterator it = classes_classifiers.begin(); it != classes_classifiers.end(); ++it) {
 		classes_colors[(*it).first] = Scalar((float)(ccount++)/(float)(classes_classifiers.size())*180.0f,255,255);
-		cout << "class " << (*it).first << " color " << classes_colors[(*it).first].val[0] << endl;
+		if(debug) cout << "class " << (*it).first << " color " << classes_colors[(*it).first].val[0] << endl;
 	}
 }	
 
@@ -38,7 +39,7 @@ void FoodcamPredictor::initSVMs() {
 	struct dirent *dirp;
 	struct stat filestat;
 	
-	cout << "load SVM classifiers" << endl;
+	if(debug) cout << "load SVM classifiers" << endl;
 	dir = ".";
 	dp = opendir( dir.c_str() );
 	
@@ -52,7 +53,7 @@ void FoodcamPredictor::initSVMs() {
 		if (filepath.find("SVM_classifier_with_color") != string::npos)
 		{
 			string class_ = filepath.substr(filepath.rfind('_')+1,filepath.rfind('.')-filepath.rfind('_')-1);
-			cout << "load " << filepath << ", class: " << class_ << endl;
+			if (debug) cout << "load " << filepath << ", class: " << class_ << endl;
 			classes_classifiers.insert(pair<string,CvSVM>(class_,CvSVM()));
 			classes_classifiers[class_].load(filepath.c_str());
 		}
@@ -61,7 +62,7 @@ void FoodcamPredictor::initSVMs() {
 }
 
 void FoodcamPredictor::initVocabulary() {
-	cout << "read vocabulary form file"<<endl;
+	if (debug) cout << "read vocabulary form file"<<endl;
 	FileStorage fs("vocabulary_color_1000.yml", FileStorage::READ);
 	fs["vocabulary"] >> vocabulary;
 	fs.release();	
@@ -105,7 +106,7 @@ void FoodcamPredictor::evaluateOneImage(Mat& __img, vector<string>& out_classes)
 		}
 	}
 	
-	cout << "to check: " << check_points.size() << " points"<<endl;
+	if (debug) cout << "to check: " << check_points.size() << " points"<<endl;
 	
 	Mat seg = Mat::zeros(copy.size(),CV_8UC3);
 	
@@ -113,7 +114,7 @@ void FoodcamPredictor::evaluateOneImage(Mat& __img, vector<string>& out_classes)
 	for (int i = 0; i < check_points.size(); i++) {
 		int x = check_points[i].x;
 		int y = check_points[i].y;
-		//			cout << omp_get_thread_num() << " scan " << check_points[i] << endl;
+		//			if (debug) cout << omp_get_thread_num() << " scan " << check_points[i] << endl;
 		Mat img,response_hist;
 		__img(Rect(x-winsize/2,y-winsize/2,winsize,winsize)&Rect(0,0,__img.cols,__img.rows)).copyTo(img);
 		
@@ -150,8 +151,8 @@ void FoodcamPredictor::evaluateOneImage(Mat& __img, vector<string>& out_classes)
 					minclass = (*it).first;
 				}
 			}
-			//				cout << "best class: " << minclass << " ("<<minf<<")"<<endl;
-			cout << "."; cout.flush();
+			//				if (debug) cout << "best class: " << minclass << " ("<<minf<<")"<<endl;
+			if (debug) cout << "."; if (debug) cout.flush();
 			//circle(copy, Point(x,y), 5, classes_colors[minclass], CV_FILLED);
 			float dim = MAX(MIN(minf - 0.8f,0.3f),0.0f) / 0.3f; //dimming the color: [0.8,1.1] -> [0.0,1.0]
 			Scalar color_(classes_colors[minclass].val[0], classes_colors[minclass].val[1], classes_colors[minclass].val[2] * dim); 
@@ -169,7 +170,7 @@ void FoodcamPredictor::evaluateOneImage(Mat& __img, vector<string>& out_classes)
 		}
 	}
 	
-	cout << endl << "found classes: ";
+	if (debug) cout << endl << "found classes: ";
 	float max_class_f = FLT_MIN, max_class_f1 = FLT_MIN; string max_class, max_class1;
 	vector<float> scores;
 	for (map<string,pair<int,float> >::iterator it=found_classes.begin(); it != found_classes.end(); ++it) {
@@ -178,7 +179,7 @@ void FoodcamPredictor::evaluateOneImage(Mat& __img, vector<string>& out_classes)
 			continue;	//an impossible score
 		}
 		scores.push_back(score);
-		cout << (*it).first << "(" << score << "),"; //<< (*it).second.first << "," << (*it).second.second / (float)(*it).second.first << "), ";
+		if (debug) cout << (*it).first << "(" << score << "),"; //<< (*it).second.first << "," << (*it).second.second / (float)(*it).second.first << "), ";
 		if(score > max_class_f) { //1st place thrown off
 			max_class_f1 = max_class_f;
 			max_class1 = max_class;
@@ -190,7 +191,7 @@ void FoodcamPredictor::evaluateOneImage(Mat& __img, vector<string>& out_classes)
 			max_class1 = (*it).first;
 		}
 	}
-	cout << endl;
+	if (debug) cout << endl;
 
 	normalizeClassname(max_class);
 	normalizeClassname(max_class1);
@@ -204,5 +205,5 @@ void FoodcamPredictor::evaluateOneImage(Mat& __img, vector<string>& out_classes)
 		out_classes.push_back(max_class1);
 	}	
 	
-	cout << "chosen class: " << max_class << ", (" << max_class1 << "?)" << endl;
+	if (debug) cout << "chosen class: " << max_class << ", (" << max_class1 << "?)" << endl;
 }

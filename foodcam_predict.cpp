@@ -16,6 +16,7 @@ int main(int argc, char* argv[]) {
 	}
 	
 	FoodcamPredictor predictor;
+	predictor.setDebug(false);
 	
 	Mat __img = imread(argv[1]),_img;
 	if(__img.size() != Size(640,480)) {
@@ -28,8 +29,9 @@ int main(int argc, char* argv[]) {
 	
 	cout << max_class[0];
 	if (max_class.size()>1) {
-		cout << "," << max_class[1] << endl;
+		cout << "," << max_class[1];
 	}
+	cout << endl;
 	
 	return 0;
 }
