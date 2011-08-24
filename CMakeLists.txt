@@ -22,11 +22,11 @@ TARGET_LINK_LIBRARIES( kmeans-trainer ${OpenCV_LIBS} )
 ADD_EXECUTABLE( make-test-background make_test_background_image.cpp )
 TARGET_LINK_LIBRARIES( make-test-background ${OpenCV_LIBS} )
 
-ADD_EXECUTABLE( test-classifiers test_classifiers.cpp )
+ADD_EXECUTABLE( test-classifiers test_classifiers.cpp predict_common.cpp )
 TARGET_LINK_LIBRARIES( test-classifiers ${OpenCV_LIBS} )
 
 ADD_EXECUTABLE( train-SVM-alone train_SVM_alone.cpp training_common.cpp )
 TARGET_LINK_LIBRARIES( train-SVM-alone ${OpenCV_LIBS} )
 
-ADD_EXECUTABLE( foodcam-predict foodcam_predict.cpp training_common.cpp )
+ADD_EXECUTABLE( foodcam-predict foodcam_predict.cpp predict_common.cpp )
 TARGET_LINK_LIBRARIES( foodcam-predict ${OpenCV_LIBS} )
