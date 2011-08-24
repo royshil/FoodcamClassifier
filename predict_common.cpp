@@ -168,12 +168,14 @@ void FoodcamPredictor::evaluateOneImage(Mat& __img, vector<string>& out_classes)
 		}
 	}
 	
-	//TODO: there is some weirdness here!!! sometimes a class is not chosen.
 	cout << endl << "found classes: ";
 	float max_class_f = FLT_MIN, max_class_f1 = FLT_MIN; string max_class, max_class1;
 	vector<float> scores;
 	for (map<string,pair<int,float> >::iterator it=found_classes.begin(); it != found_classes.end(); ++it) {
-		float score = (float)((*it).second.first) * (*it).second.second;
+		float score = sqrtf((float)((*it).second.first) * (*it).second.second);
+		if (score > 1e+10) {
+			continue;	//an impossible score
+		}
 		scores.push_back(score);
 		cout << (*it).first << "(" << score << "),"; //<< (*it).second.first << "," << (*it).second.second / (float)(*it).second.first << "), ";
 		if(score > max_class_f) { //1st place thrown off
@@ -193,11 +195,11 @@ void FoodcamPredictor::evaluateOneImage(Mat& __img, vector<string>& out_classes)
 	normalizeClassname(max_class1);
 
 	Scalar mean_,stddev_;
-	meanStdDev(Mat(scores), mean_, stddev_);
+//	meanStdDev(Mat(scores), mean_, stddev_);
 	out_classes.clear();
 	out_classes.push_back(max_class);
-	if(stddev_.val[0] < 10) {
-		//variance is low, so result is undecicive, we should take both max-classes.
+	if(max_class_f - max_class_f1 < 10) {
+		//Forget about it: variance is low (~10), so result is undecicive, we should take both max-classes.
 		out_classes.push_back(max_class1);
 	}	
 	
