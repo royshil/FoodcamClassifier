@@ -25,6 +25,7 @@ int main(int argc, char** argv) {
 	cout << "total " << lines.size() << " samples to scan" <<endl;
 	
 	FoodcamPredictor predictor;
+	predictor.setDebug(true);
 	
 	map<string,CvSVM>& classes_classifiers = predictor.getClassesClassifiers();
 	map<string,map<string,int> > confusion_matrix;

@@ -51,7 +51,12 @@ Train the classifiers:
 
 Test your work:
 ./test-classifiers 
-(it will output the confusion matrix in neighbors list form)
+(it will output a whole lotta things, and then the confusion matrix in neighbors list form)
+
+
+Put it to work!:
+./foodcam-predict some_640x480_image_of_food.png
+Will output either one or two found classes of food, based on how close the prediction is.
 
 
 Notes

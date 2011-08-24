@@ -158,6 +158,7 @@
 		D79318141404316D00C2209B /* predict_common.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = predict_common.cpp; sourceTree = "<group>"; };
 		D79319E01404990F00C2209B /* foodcam_predict.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = foodcam_predict.cpp; sourceTree = "<group>"; };
 		D79319F01404991200C2209B /* FoodcamClassifier */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = FoodcamClassifier; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7931A181404A0EA00C2209B /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		D7BC00A313FEE61A004D115F /* libopencv_ml.2.3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_ml.2.3.1.dylib; path = usr/local/lib/libopencv_ml.2.3.1.dylib; sourceTree = SDKROOT; };
 		D7BC014013FF0035004D115F /* FoodcamClassifier */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = FoodcamClassifier; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7BC01BD13FF3F9F004D115F /* train_bovw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = train_bovw.h; sourceTree = "<group>"; };
@@ -299,6 +300,7 @@
 		08FB7795FE84155DC02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				D7931A181404A0EA00C2209B /* README */,
 				D7BC060C1402DB35004D115F /* train_SVM_alone.cpp */,
 				D7BC02691400182B004D115F /* training.txt */,
 				08FB7796FE84155DC02AAC07 /* main.cpp */,
