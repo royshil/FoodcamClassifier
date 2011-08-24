@@ -27,3 +27,6 @@ TARGET_LINK_LIBRARIES( test-classifiers ${OpenCV_LIBS} )
 
 ADD_EXECUTABLE( train-SVM-alone train_SVM_alone.cpp training_common.cpp )
 TARGET_LINK_LIBRARIES( train-SVM-alone ${OpenCV_LIBS} )
+
+ADD_EXECUTABLE( foodcam-predict foodcam_predict.cpp training_common.cpp )
+TARGET_LINK_LIBRARIES( foodcam-predict ${OpenCV_LIBS} )

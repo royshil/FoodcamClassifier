@@ -21,6 +21,7 @@ FoodcamPredictor::FoodcamPredictor() {
 	extractor = _extractor;
 	bowide = Ptr<BOWImgDescriptorExtractor>(new BOWImgDescriptorExtractor(extractor,matcher));
 	bowide->setVocabulary(vocabulary);
+	background = imread("background.png");
 }
 
 void FoodcamPredictor::initColors() {
