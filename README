@@ -23,7 +23,7 @@ CMake should take you all the way, but I also have an .xcodeproj/ included.
 Working it
 ----------
 Get the dataset:
-http://fay.media.mit.edu/foodcamimages.zip
+http://www.media.mit.edu/~roys/shared/foodcamimages.zip
 Assume the dataset is now in the same directory, under foodcamimages/.
 
 
